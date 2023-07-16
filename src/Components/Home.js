@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContex } from '../Contex/ClientContex';
 
 const Home = () => {
+    const { user } = useContext(AuthContex);
     return (
         <div>
-            <h1>this is home section</h1>
+            <h1>Welcome to {user?.email} </h1>
         </div>
     );
 };

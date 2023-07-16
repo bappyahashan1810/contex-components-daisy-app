@@ -1,8 +1,13 @@
-import React from 'react';
+
+import { useContext } from 'react';
 import it from '../images/it.jpg';
 import { Link } from 'react-router-dom';
+import { AuthContex } from '../Contex/ClientContex';
+
+
 
 const Register = () => {
+    const { createUser, googleSignIn } = useContext(AuthContex);
     const handlerSubmit = event => {
         event.preventDefault();
         const form = event.target;
@@ -10,6 +15,22 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(name, email, password);
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                form.reset();
+            })
+            .catch(error => console.error(error))
+    }
+
+    const handlerGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .then(error => console.error(error))
     }
     return (
         <div>
@@ -41,6 +62,10 @@ const Register = () => {
                                 <button className="btn btn-primary">Register</button>
                             </div>
                         </form>
+
+                        <label className="label">
+                            <button onClick={handlerGoogleSignIn} className="btn btn-outline btn-success">Google</button>
+                        </label>
                         <label className="label">
                             <p><small>Have an account? Please<button className="btn btn-active btn-link"><Link to='/login'>Login</Link></button></small></p>
                         </label>

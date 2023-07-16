@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContex } from '../../Contex/ClientContex';
 
 const Login = () => {
+
+    const { loginUser } = useContext(AuthContex);
+
     const handlerSubmit = event => {
         event.preventDefault();
         const form = event.target;
@@ -9,6 +13,14 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+
+        loginUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                form.reset();
+            })
+            .catch(error => console.error(error))
     }
     return (
         <div>

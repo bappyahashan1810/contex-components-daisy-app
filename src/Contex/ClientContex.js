@@ -11,7 +11,8 @@ const auth = getAuth(app);
 
 
 const ClientContex = ({ children }) => {
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
 
     const loginUser = (email, password) => {
@@ -25,6 +26,7 @@ const ClientContex = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
+            setLoading(false);
         })
         return () => {
             unsubscribe();
@@ -41,7 +43,7 @@ const ClientContex = ({ children }) => {
     }
 
 
-    const authInfo = { googleSignIn, createUser, loginUser, user, logOut };
+    const authInfo = { loading, googleSignIn, createUser, loginUser, user, logOut };
 
 
     return (

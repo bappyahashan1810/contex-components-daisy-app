@@ -15,6 +15,7 @@ const Header = () => {
             <div className="navbar bg-primary text-primary-content">
                 <Link className="btn btn-ghost normal-case text-xl" to='/'>Ahashan IT</Link>
                 <Link className="btn btn-ghost normal-case text-xl" to='/'>Home</Link>
+                <Link className="btn btn-ghost normal-case text-xl" to='/orders'>Orders</Link>
                 {
                     user?.email ? <button onClick={handlerLogOut} className="btn btn-sm m-2">LogOut</button>
                         :
